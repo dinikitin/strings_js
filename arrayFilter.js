@@ -1,21 +1,20 @@
-let list = [31, 10, 'chiken', 9, 'fish', 10]
+let list = [31, 10, 'chicken', 9, 'fish', 10]
 
-
-
-let listString = list.filter((str)=>{
+let listString = list.filter((str) => {
     return isNaN(str)
 })
 
-let listNumber = list.filter((num)=>{
-    return num === 10
-})
-
-listString.forEach((item, array)=>{
+listString.forEach((item, array) => {
     console.log(item)
 })
 
 console.log('----------')
+//////////////////////
 
-listNumber.forEach((item, index, array)=>{
+let listNumber = list.filter((num) => {
+    return num === 10
+})
+
+listNumber.forEach((item, index, array) => {
     console.log(item, '-', index)
 })

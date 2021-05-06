@@ -31,3 +31,10 @@ console.log(sentence)
 
 
 
+for (let i, k in person) {
+    console.log(`${i}: ${i}`)
+}
+
+
+
+
