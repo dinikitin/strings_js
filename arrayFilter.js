@@ -1,8 +1,6 @@
 let list = [31, 10, 'chiken', 9, 'fish', 10]
 
-function isStr(str) {
-    return isNaN(str)
-}
+
 
 let listString = list.filter((str)=>{
     return isNaN(str)
