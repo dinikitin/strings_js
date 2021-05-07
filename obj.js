@@ -20,12 +20,9 @@ console.log('--------')
 for (let item of Object.entries(person)) {
     const key = item[0];
     const value = item[1];
-    if (value == parseInt) {
-        console.log(`${key[0].toUpperCase()}${key.substr[1]}: ${value} age`)
-        continue
-    }
+    
 
-    else if (key.includes('Name')) {
+    if (key.includes('Name')) {
         const twoStr = key.indexOf('Name')
         console.log(`${key[0].toUpperCase()}${key.substr(1, twoStr - 1)} ${key.substr(twoStr).toLowerCase()}: ${value}`)
     }
