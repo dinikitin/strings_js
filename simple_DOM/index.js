@@ -5,10 +5,9 @@ const standartColor = document.getElementsByClassName('bar')
 
 input.value = select.value
 
-input.oninput = function() {
+input.oninput = () => {
     input.classList.remove('inputError')
 }
-
 select.addEventListener('change', () => {
     input.value = select.value
 })
