@@ -11,24 +11,30 @@
 
 <body>
     <div class="wrap">
-        <div class="#">
-            <h1>ToDo list</h1>
+        <div class="borderAllElements">
+            <h1>ToDos</h1>
             <div class="todoList">
-                <input type="text" id="input" placeholder="Enter">
-                <button id="button">Add</button>
+                
+                <input type="text" id="input" class='input' placeholder="Enter">
+                <button id="button" class="btnAdd">Add</button>
             </div>
-            <div class="todo">
+            <div class="borderTop">
                 <ul id="ul" class="todo">
-                    <span id="total"></span> 
+                    
                 </ul>
+                <!-- <span id="total"></span>  -->
             </div>
-            <button id="buttonClear">Clear</button>
-            <button id="buttonProgress">Progress</button>
-            <button id="buttonCompleted">Completed</button>
+            <div class="borderBottom ">
+            <button id="buttonProgress" class="btn">Progress</button>
+            <button id="buttonCompleted" class="btn">Completed</button>
+            <button id="buttonAll" class="btn">All</button>
+        </br></br>
+            <button id="buttonClear" class="btn">Clear</button>
+            
         </div>
-        <div _ngcontent-kmt-c15="" class="filters-container"><div _ngcontent-kmt-c15="" class="filter"><input _ngcontent-kmt-c15="" type="checkbox">All </div><div _ngcontent-kmt-c15="" class="filter"><input _ngcontent-kmt-c15="" type="checkbox">Completed </div><div _ngcontent-kmt-c15="" class="filter selected"><input _ngcontent-kmt-c15="" type="checkbox">In Progress </div><!----></div>
+        </div>
     </div>
-    <script src=" index.js ">
+    <script src="index.js ">
     </script>
 
 </body>

@@ -1,71 +1,40 @@
-// const addMessage = document.getElementById('input')
-// const addBtn = document.getElementById('button')
-// const ul = document.getElementById('ul')
-// let arrayToDo = []
-
-// if(localStorage.getItem('todo')) {
-//     todoList = JSON.parse(localStorage.getItem('ul'))
-//     displayMsg()
-// }
-
-// addBtn.addEventListener('click', function () {
-//     let ToDo = {
-//         input: addMessage.value,
-//         checked: true
-//     }
-//     arrayToDo.push(ToDo)
-//     displayMsg()
-//     console.log(arrayToDo)
-// })
-
-
-
-// function displayMsg() {
-//     let display = ''
-//     arrayToDo.forEach(function(item, index) {
-//         display += `
-//         <li>
-//         <input type='checkbox' id='${index}' ${item.checked? 'checked': ''}>
-//         <label for='${index}'>${item.input}</label>
-//         </li>`
-//         ul.innerHTML = display
-//     });
-
-// }
-
 const input = document.getElementById('input')
 const addBtn = document.getElementById('button')
 const ul = document.getElementById('ul')
 const total = document.getElementById('total')
 const btnClear = document.getElementById('buttonClear')
 const btnProgress = document.getElementById('buttonProgress')
+const btnCompleted = document.getElementById('buttonCompleted')
+const btnAll = document.getElementById('buttonAll')
 
 
 addBtn.addEventListener('click', (e) => {
-    
+
     if (input.value === '') {
+        input.className = 'inputError'
         return
     }
-    
+
     main(input.value)
     input.value = ''
 })
 
-
+input.oninput = () => {
+    input.classList.remove('inputError')
+    input.className = 'input'
+}
 
 
 function main(value) {
     const li = document.createElement('li')
     const btnDel = document.createElement('button')
-    let allElements = []
 
     li.classList = 'li'
     li.textContent = value
     ul.appendChild(li)
-    allElements.push(li)
-  
 
-    btnDel.classList = 'btn'
+
+    btnDel.classList = 'btnDel'
     btnDel.textContent = 'delete'
     li.appendChild(btnDel)
 
@@ -76,56 +45,54 @@ function main(value) {
     li.addEventListener('click', () => {
         li.classList.toggle('liActive')
     })
-
-
-    btnClear.addEventListener('click', () => {
-        console.log(allElements)
-        allElements.forEach(el => el.remove())
-
-    
-    btnProgress.addEventListener('click', () => {
-        allElements.forEach((item) => {
-            if (item.className === 'liActive') {
-                item.remove()
-            }
-        })
-    })
-
-
-    })
-    
 }
 
 
+btnCompleted.addEventListener('click', () => {
+    document.querySelectorAll('.li').forEach((item) => {
+        
+        btnCompleted.className = 'btnActive'
+        btnProgress.className = 'btn'
+
+        item.classList.remove('liNotActive')
+
+        if (!item.classList.contains('liActive')) {
+            console.log(`item.classList`, item.classList)
+            item.classList.add('liNotActive')
+        }
+
+    })
+})
+
+btnProgress.addEventListener(('click'), () => {
+    document.querySelectorAll('li').forEach(item => {
+        btnCompleted.className = 'btn'
+        btnProgress.className = 'btnActive'
+        // item.classList.toggle('liNotActive')
+
+        item.classList.remove('liNotActive')
+
+        if (item.classList.contains('liActive')) {
+            item.classList.add('liNotActive')
+        }
+    })
+})
+
+btnAll.addEventListener('click', () => {
+    document.querySelectorAll('.li').forEach((item) => {
+        btnProgress.classList = 'btn'
+        btnCompleted.classList = 'btn'
+        btnAll.classList = 'btn'
+        
+
+        item.classList.remove('liNotActive')
+    })
+})
+
+btnClear.addEventListener('click', () => {
+    document.querySelectorAll('li').forEach(el => el.remove())
+})
 
 
 
 
-
-
-
-
-
-// function createElement(value) {
-//     const btnDel = document.createElement('button')
-//     const li = document.createElement('li')
-
-//     li.innerHTML = value                     // innerHtml vs textContest  
-//     li.classList = 'li'
-//     ul.appendChild(li)                      // append vs appendChild
-
-   
-//     btnDel.textContent = 'del'
-//     btnDel.classList = 'btn'
-//     li.appendChild(btnDel)
-
-//     li.addEventListener('click', () => {
-//         li.classList.toggle('liActive')
-//     })
-
-//     btnDel.addEventListener('click', () => {
-//         li.remove()
-//     })
-
-//     console.log(value)
-// }
