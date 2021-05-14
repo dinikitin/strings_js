@@ -1,7 +1,6 @@
 const input = document.getElementById('input')
 const addBtn = document.getElementById('button')
 const ul = document.getElementById('ul')
-const total = document.getElementById('total')
 const btnClear = document.getElementById('buttonClear')
 const btnProgress = document.getElementById('buttonProgress')
 const btnCompleted = document.getElementById('buttonCompleted')
@@ -9,7 +8,6 @@ const btnAll = document.getElementById('buttonAll')
 
 
 addBtn.addEventListener('click', (e) => {
-
     if (input.value === '') {
         input.className = 'inputError'
         return
@@ -24,7 +22,6 @@ input.oninput = () => {
     input.className = 'input'
 }
 
-
 function main(value) {
     const li = document.createElement('li')
     const btnDel = document.createElement('button')
@@ -32,7 +29,6 @@ function main(value) {
     li.classList = 'li'
     li.textContent = value
     ul.appendChild(li)
-
 
     btnDel.classList = 'btnDel'
     btnDel.textContent = 'delete'
@@ -47,20 +43,16 @@ function main(value) {
     })
 }
 
-
 btnCompleted.addEventListener('click', () => {
     document.querySelectorAll('.li').forEach((item) => {
         
         btnCompleted.className = 'btnActive'
         btnProgress.className = 'btn'
-
         item.classList.remove('liNotActive')
 
         if (!item.classList.contains('liActive')) {
-            console.log(`item.classList`, item.classList)
-            item.classList.add('liNotActive')
+            item.classList.add('liNotActive')    
         }
-
     })
 })
 
@@ -68,8 +60,6 @@ btnProgress.addEventListener(('click'), () => {
     document.querySelectorAll('li').forEach(item => {
         btnCompleted.className = 'btn'
         btnProgress.className = 'btnActive'
-        // item.classList.toggle('liNotActive')
-
         item.classList.remove('liNotActive')
 
         if (item.classList.contains('liActive')) {
@@ -83,8 +73,6 @@ btnAll.addEventListener('click', () => {
         btnProgress.classList = 'btn'
         btnCompleted.classList = 'btn'
         btnAll.classList = 'btn'
-        
-
         item.classList.remove('liNotActive')
     })
 })
@@ -92,7 +80,3 @@ btnAll.addEventListener('click', () => {
 btnClear.addEventListener('click', () => {
     document.querySelectorAll('li').forEach(el => el.remove())
 })
-
-
-
-
