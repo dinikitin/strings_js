@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>React [RU] Tutorial v2</title>
+  <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+
+
+  <style>
+    .none {
+      display: none;
+    }
+
+    body {
+      background: rgba(4, 207, 190, 0.596);
+      font-family: sans-serif;
+    }
+
+    p {
+      margin: 0 0 5px;
+    }
+
+    .article {
+      background: #FFF;
+      border: 1px solid rgba(0, 89, 181, 0.82);
+      width: 600px;
+      margin: 0 0 5px;
+      box-shadow: 2px 2px 5px -1px rgb(0, 81, 202);
+      padding: 3px 5px;
+    }
+
+    .newsAuthor {
+      text-decoration: underline;
+      color: #007DDC;
+    }
+
+
+    .newsText {
+      margin: 10px 0 0 0;
+      display: block;
+    }
+
+    .input {
+      margin: 0 5px 5px 0;
+    }
+
+
+    .add {
+      margin: 0 5px 5px 0;
+      width: 210px;
+      border: 1px dashed rgba(0, 89, 181, 0.82);
+      padding: 5px;
+    }
+
+    .addAuthor,
+    .addText,
+    .addBtn,
+    .addCheckbox {
+      display: block;
+      margin: 0 0 5px 0;
+      padding: 5px;
+      width: 94%;
+      border: 1px solid rgba(0, 89, 181, 0.82);
+    }
+
+    .addCheckbox {
+      border: none;
+      font-size: 12px;
+    }
+
+    .addBtn {
+      box-sizing: content-box;
+      color: #FFF;
+      text-transform: uppercase;
+      background: #007DDC;
+    }
+
+    .addBtn:disabled {
+      background: #CCC;
+      color: #999;
+    }
+  </style>
+</head>
+
+<body>
+
+  </script>
+  <div id='main'></div>
+  <script type='text/babel'>
+    const myNews = [
+      {
+        id: 1,
+        author: '12.05',
+        text: 'Задача 1',
+        bigText: 'в четыре с четвертью часа четыре чёрненьких чумазеньких чертёнка чертили чёрными чернилами чертёж.'
+      },
+      {
+        id: 2,
+        author: '14.05',
+        text: 'Задача 2',
+        bigText: 'А евро 42!',
+      },
+      {
+        id: 3,
+        author: '15.05',
+        text: 'Задача 3',
+        bigText: 'А евро опять выше 70.'
+      },
+      {
+        id: 4,
+        author: '16.05',
+        text: 'Задача 4',
+        bigText: 'Еще есть группа VK, telegram и канал на youtube! Вся инфа на сайте, не реклама!'
+      },
+
+    ];
+
+    class Add extends React.Component {
+      state = {
+        name: '',
+        text: '',
+        bigText: '',
+        checkbox: false
+      }
+      onBtnClickHandler = (e) => {
+        e.preventDefault()
+        const { name, text, bigText } = this.state
+        this.props.onAddNews({
+          id: +new Date(),
+          author: name,
+          text,
+          bigText
+        })
+
+      }
+
+      validate = () => {
+        const { name, text, checkbox } = this.state
+        if (name.trim() && text.trim() && checkbox) {
+          return true
+        }
+        else {
+          return false
+        }
+      }
+
+      onChangeName = (e) => {
+        this.setState({ name: e.currentTarget.value })
+      }
+
+      onChangeText = (e) => {
+        this.setState({ text: e.currentTarget.value })
+      }
+
+      handleChange = (e) => {
+        this.setState({ bigText: e.currentTarget.value })
+      }
+
+      handleCheckboxChange = (e) => {
+        this.setState({ checkbox: e.currentTarget.checked })
+      }
+
+      render() {
+        const { name, text, checkbox, bigText } = this.state
+
+        return (
+          <form className='add'>
+            <input type='text' id='name' className='addInput' placeholder='Enter name' onChange={this.onChangeName} value={name} />
+            <label className='addCheckbox'>
+              <input type='checkbox' onChange={this.handleCheckboxChange} />I am agree
+            </label>
+            <textarea className='addTextarea' id='text' placeholder='Enter text' onChange={this.onChangeText} value={text}></textarea>
+            <textarea className='addTextarea' id='bigText' placeholder='Подробнее' onChange={this.handleChange} value={bigText}></textarea>
+            <button className='addBtn' onClick={this.onBtnClickHandler} disabled={!this.validate()}>Add</button>
+          </form>
+        )
+      }
+    }
+
+
+    Add.propTypes = {
+      onAddNews: PropTypes.func.isRequired,
+    }
+
+    class Article extends React.Component {
+      state = {
+        visible: false
+      }
+
+      handleReadMoreClick = (e) => {
+        e.preventDefault()
+        this.setState({
+          visible: true
+        })
+
+      }
+
+
+      render() {
+        const { visible } = this.state
+        const { data } = this.props
+
+        return (
+          <div className='article'>
+            <h3 className='newsAuthor'>{data.author}</h3>
+            <p className='newsText'>{data.text}</p>
+            {!visible && <a onClick={this.handleReadMoreClick} href='#' className='newsReadMore'>Подробнее</a>}
+            {visible && <a className='newBigText'>{data.bigText}</a>}
+
+          </div>
+        )
+      }
+    }
+
+    Article.propTypes = {
+      data: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        author: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired
+      })
+    }
+
+
+    class News extends React.Component {
+      state = {
+        counter: 0
+      }
+      handleState = () => {
+        this.setState({ counter: ++this.state.counter })
+      }
+      renderNews = () => {
+        const { data } = this.props
+        let newsTemplate = null
+
+        if (data.length) {
+          newsTemplate = data.map((item) => {
+            return (
+              <Article key={item.id} data={item} />
+            )
+          })
+        } else {
+          newsTemplate = <h3>К сожалению, новостей нет</h3>
+        }
+        return newsTemplate
+      }
+      render() {
+        const { data } = this.props
+        return (
+          <div className='news'>
+            {this.renderNews()}
+
+            { data.length ? <strong className={'news__count'}>Всего задач: {data.length}</strong> : null}
+
+            <button onClick={this.handleState}>hande</button>
+            <p><strong>Всего кликов: {this.state.counter}</strong></p>
+          </div>
+        )
+      }
+    }
+
+    News.propTypes = {
+      data: PropTypes.array.isRequired
+    }
+
+    class App extends React.Component {
+      state = {
+        news: myNews
+      }
+      handleAddNews = (data) => {
+        const nextNews = [data, ...this.state.news]
+        this.setState({ news: nextNews })
+        console.log('a am console')
+      }
+      render() {
+        return (
+          <React.Fragment>
+            <Add onAddNews={this.handleAddNews} />
+            <h2>Task</h2>
+            <News data={this.state.news} />
+          </React.Fragment>
+        )
+      }
+
+    }
+
+    ReactDOM.render(
+      <App />,
+      document.getElementById('main')
+    )
+
+  </script>
+</body>
+
+</html>
